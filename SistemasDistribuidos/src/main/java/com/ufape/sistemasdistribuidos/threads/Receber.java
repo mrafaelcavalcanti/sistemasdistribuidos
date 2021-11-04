@@ -11,6 +11,7 @@ import com.ufape.sistemasdistribuidos.utils.RequisicoesUtils;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.util.Objects;
+import org.apache.commons.lang3.SerializationUtils;
 
 /**
  *
@@ -35,13 +36,14 @@ public class Receber extends Thread {
     public void run() {
         try {
             arquivoByteArray = requisicoesUtils.obterArquivo(this.id);
-            arquivo = (Arquivo) Arquivo.deserialize(arquivoByteArray);
-            if (Objects.equals(arquivo.getId(), this.id)) {
+            //arquivo = (Arquivo) SerializationUtils.deserialize(arquivoByteArray);
+            if (arquivoByteArray != null) {
                 String path = usuario.getDiretorioArquivos() +"\\"+ this.id;
                 try (FileOutputStream fos = new FileOutputStream(path)) {
-                    ObjectOutputStream oos = new ObjectOutputStream(fos);
-                    oos.writeObject(arquivo);
-                    oos.close();
+                    //ObjectOutputStream oos = new ObjectOutputStream(fos);
+                    //oos.writeObject(arquivo);
+                    //oos.close();
+                    fos.write(arquivoByteArray);
                 }
             } else {
                 throw new Exception();

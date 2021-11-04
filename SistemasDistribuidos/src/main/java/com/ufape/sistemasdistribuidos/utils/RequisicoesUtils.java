@@ -24,7 +24,7 @@ import org.json.simple.parser.JSONParser;
 public class RequisicoesUtils {
 
     private final int TIMEOUT = 240000;
-    private final String server = "servidor"; //temporario ate que se tenha o servidor na nuvem
+    private final String server = "https://sistemasdistribuidosserver.herokuapp.com/";
 
     public List<Requisicao> existeRequisicaoEnvio(Long id) throws Exception {
         RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(TIMEOUT).setSocketTimeout(TIMEOUT).build();
@@ -69,7 +69,7 @@ public class RequisicoesUtils {
     public void enviarArquivo(byte[] bytearray) throws Exception {
         RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(TIMEOUT).setSocketTimeout(TIMEOUT).build();
         try (CloseableHttpClient httpclient = HttpClientBuilder.create().setDefaultRequestConfig(requestConfig).build()) {
-            HttpPost httpPost = new HttpPost(String.format("%s/api/arquivos/enviar", server));
+            HttpPost httpPost = new HttpPost(String.format("%s/api/arquivos", server));
             httpPost.addHeader("Content-Type", "application/octet-stream");
             ByteArrayEntity bae = new ByteArrayEntity(bytearray);
             httpPost.setEntity(bae);
