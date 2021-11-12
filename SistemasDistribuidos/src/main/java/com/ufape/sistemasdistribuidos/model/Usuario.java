@@ -59,7 +59,7 @@ public class Usuario {
 
     public void jsonToObject() throws Exception {
         JSONParser parser = new JSONParser();
-        JSONObject usuario = (JSONObject) parser.parse(new FileReader("c:\\dadosUsuario.json"));
+        JSONObject usuario = (JSONObject) parser.parse(new FileReader("/home/vinesnts/Documentos/BCC/2020.2/Distribuidos/sistemasdistribuidos/SistemasDistribuidos/user-properties.json"));
         this.id = (Long) usuario.get("id");
         this.nome = (String) usuario.get("nome");
         this.senha = (String) usuario.get("senha");

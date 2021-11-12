@@ -1,14 +1,21 @@
 package com.ufape.sistemasdistribuidos.utils;
 
 import com.ufape.sistemasdistribuidos.model.Requisicao;
+
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ByteArrayEntity;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
@@ -25,6 +32,14 @@ public class RequisicoesUtils {
 
     private final int TIMEOUT = 240000;
     private final String server = "https://sistemasdistribuidosserver.herokuapp.com/";
+    private static RequisicoesUtils instancia;
+
+    public static RequisicoesUtils getInstance() {
+        if(instancia == null) {
+            instancia = new RequisicoesUtils();
+        }
+        return instancia;
+    }
 
     public List<Requisicao> existeRequisicaoEnvio(Long id) throws Exception {
         RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(TIMEOUT).setSocketTimeout(TIMEOUT).build();
@@ -96,4 +111,31 @@ public class RequisicoesUtils {
         }
         return requsicoes;
     }
+  
+    public String cadastrarUsuario(String nome, String senha, Integer espacoSolicitado) {
+    	try {
+    		HashMap<String, String> mapObj = new HashMap<String, String>();
+    		mapObj.put("id", "1000000");
+    		mapObj.put("nome", nome);
+    		mapObj.put("senha", senha);
+    		mapObj.put("espacoSolicitado", espacoSolicitado.toString());
+    		mapObj.put("espacoDisponivel", "0");
+
+    		JSONObject jsonObj = new JSONObject(mapObj);
+    		RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(TIMEOUT).setSocketTimeout(TIMEOUT).build();
+        	try (CloseableHttpClient httpclient = HttpClientBuilder.create().setDefaultRequestConfig(requestConfig).build()) {
+	            HttpPost httpPost = new HttpPost(String.format("%s/api/usuarios", server));
+	            String json = jsonObj.toJSONString();
+	            StringEntity entity = new StringEntity(json);
+	            httpPost.setEntity(entity);
+	            httpPost.setHeader("Content-type", "application/json");
+            	try (CloseableHttpResponse response = httpclient.execute(httpPost)) {
+            		if (response.getStatusLine().getStatusCode() != 201) return "Erro ao cadastrar usuário, tente novamente";
+                    return "Usuário cadastrado com sucesso";
+            	}
+            }
+    	} catch (Exception e) {
+    		return "Erro ao cadastrar usuário, tente novamente";
+    	}
+    } 
 }

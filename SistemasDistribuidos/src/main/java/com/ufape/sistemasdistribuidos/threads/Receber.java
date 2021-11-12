@@ -39,10 +39,11 @@ public class Receber extends Thread {
             //arquivo = (Arquivo) SerializationUtils.deserialize(arquivoByteArray);
             if (arquivoByteArray != null) {
                 String path = usuario.getDiretorioArquivos() +"\\"+ this.id;
+                System.out.println(path);
                 try (FileOutputStream fos = new FileOutputStream(path)) {
-                    //ObjectOutputStream oos = new ObjectOutputStream(fos);
-                    //oos.writeObject(arquivo);
-                    //oos.close();
+                    ObjectOutputStream oos = new ObjectOutputStream(fos);
+                    oos.writeObject(arquivo);
+                    oos.close();
                     fos.write(arquivoByteArray);
                 }
             } else {
