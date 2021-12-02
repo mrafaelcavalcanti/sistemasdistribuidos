@@ -37,7 +37,7 @@ public class Enviar extends Thread {
     @Override
     public void run() {
         try {
-            InputStream is = new FileInputStream(usuario.getDiretorioArquivos()+"\\"+this.id);
+            InputStream is = new FileInputStream(usuario.getDiretorio()+"\\"+this.id);
             arquivoByteArray = IOUtils.toByteArray(is);
             //ObjectInputStream ois = new ObjectInputStream(fin);
             //arquivo = (Arquivo) ois.readObject();

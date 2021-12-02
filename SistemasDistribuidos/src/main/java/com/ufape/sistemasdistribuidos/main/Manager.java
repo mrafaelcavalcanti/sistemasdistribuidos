@@ -38,7 +38,7 @@ public class Manager {
     }
 
     public static void verificarDiretorio() {
-        File diretorio = new File(usuario.getDiretorioArquivos());
+        File diretorio = new File(usuario.getDiretorio());
         if (!diretorio.exists()) {
             diretorio.mkdirs();
         }

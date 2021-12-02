@@ -8,8 +8,11 @@ module com.ufape.sistemasdistribuidos {
 	requires org.apache.httpcomponents.httpclient;
 	requires org.apache.httpcomponents.httpcore;
 	requires java.dotenv;
+	requires java.sql;
+	requires javafx.base;
 	
     opens com.ufape.sistemasdistribuidos to javafx.fxml;
+    opens com.ufape.sistemasdistribuidos.model to javafx.base;
     exports com.ufape.sistemasdistribuidos;
     exports com.ufape.sistemasdistribuidos.gui;
 }

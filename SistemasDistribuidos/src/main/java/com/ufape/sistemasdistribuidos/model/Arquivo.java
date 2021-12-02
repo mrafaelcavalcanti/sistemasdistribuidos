@@ -62,4 +62,9 @@ public class Arquivo implements Serializable {
         this.conteudo = conteudo;
     }
 
+	@Override
+	public String toString() {
+		return nome;
+	}
+
 }

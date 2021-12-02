@@ -16,7 +16,7 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
-public class PrimaryController {
+public class CadastrarController {
 	
 	private UsuarioService usuarioService;
 	
@@ -41,13 +41,13 @@ public class PrimaryController {
 	@FXML
 	public ProgressIndicator progress;
 	
-	public PrimaryController() {
+	public CadastrarController() {
         this.usuarioService = UsuarioService.getInstance();
     }
 
     @FXML
-    public void switchToSecondary() throws IOException {
-        App.setRoot("secondary");
+    public void entrar() throws IOException {
+        App.setRoot("entrar");
     }
     
     @FXML
