@@ -25,6 +25,14 @@ public class RequisicoesUtils {
 
     private final int TIMEOUT = 240000;
     private final String server = "https://sistemasdistribuidosserver.herokuapp.com";
+    private static RequisicoesUtils instancia;
+
+    public static RequisicoesUtils getInstance() {
+        if(instancia == null) {
+            instancia = new RequisicoesUtils();
+        }
+        return instancia;
+    }
 
     public List<Requisicao> existeRequisicaoEnvio(Long id) throws Exception {
         RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(TIMEOUT).setSocketTimeout(TIMEOUT).build();

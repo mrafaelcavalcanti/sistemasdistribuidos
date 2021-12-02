@@ -49,6 +49,8 @@ public class Receber extends Thread {
                     //oos.writeObject(arquivo);
                     //oos.close();
                     fos.write(arquivoByteArray);
+                    String ids = usuario.getId().toString()+"_"+this.id.toString();
+                    requisicoesUtils.confirmarRecebimento(ids);
                 }
             } else {
                 throw new Exception();
