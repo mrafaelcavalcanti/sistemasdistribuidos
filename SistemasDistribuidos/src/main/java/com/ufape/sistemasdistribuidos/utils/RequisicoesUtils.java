@@ -24,7 +24,7 @@ import org.json.simple.parser.JSONParser;
 public class RequisicoesUtils {
 
     private final int TIMEOUT = 240000;
-    private final String server = "https://sistemasdistribuidosserver.herokuapp.com/";
+    private final String server = "https://sistemasdistribuidosserver.herokuapp.com";
 
     public List<Requisicao> existeRequisicaoEnvio(Long id) throws Exception {
         RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(TIMEOUT).setSocketTimeout(TIMEOUT).build();
@@ -76,6 +76,20 @@ public class RequisicoesUtils {
             try (CloseableHttpResponse response = httpclient.execute(httpPost)) {
                 if (response.getStatusLine().getStatusCode() != 201) {
                     throw new Exception(String.format("ENVIAR_ARQUIVO(%s)",
+                            response.getStatusLine().getStatusCode()));
+                }
+            }
+        }
+    }
+    
+    public void confirmarRecebimento(String ids) throws Exception {
+        RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(TIMEOUT).setSocketTimeout(TIMEOUT).build();
+        try (CloseableHttpClient httpclient = HttpClientBuilder.create().setDefaultRequestConfig(requestConfig).build()) {
+            HttpPost httpPost = new HttpPost(String.format("%s/api/arquivos/confimarRecebimento", server, ids));
+            httpPost.addHeader("Content-Type", "application/json");
+            try (CloseableHttpResponse response = httpclient.execute(httpPost)) {
+                if (response.getStatusLine().getStatusCode() != 201) {
+                    throw new Exception(String.format("CONFIRMAR_RECEBIMENTO(%s)",
                             response.getStatusLine().getStatusCode()));
                 }
             }
