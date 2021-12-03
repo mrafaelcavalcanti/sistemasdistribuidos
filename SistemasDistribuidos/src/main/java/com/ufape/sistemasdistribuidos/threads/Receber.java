@@ -9,6 +9,7 @@ import com.ufape.sistemasdistribuidos.model.ArquivoAux;
 import com.ufape.sistemasdistribuidos.model.Usuario;
 import com.ufape.sistemasdistribuidos.utils.RequisicoesUtils;
 import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.Objects;
 import org.apache.commons.lang3.SerializationUtils;
 

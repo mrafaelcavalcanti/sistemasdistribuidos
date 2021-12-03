@@ -52,12 +52,11 @@ public class Requisicao implements Serializable {
         this.tipoRequisicao = tipoRequisicao;
     }
 
-    public Boolean getAtivo() {
-        return ativo;
-    }
+	public Boolean getAtivo() {
+		return ativo;
+	}
 
-    public void setAtivo(Boolean ativo) {
-        this.ativo = ativo;
-    }
-
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
 }
