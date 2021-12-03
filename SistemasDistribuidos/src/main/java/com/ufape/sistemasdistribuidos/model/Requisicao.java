@@ -16,12 +16,12 @@ public class Requisicao implements Serializable {
     private Long idUsuario;
     private Long idArquivo;
     private Long tipoRequisicao;
-    private Boolean ativo;
+    private boolean ativo;
 
     public Requisicao() {
     }
 
-    public Requisicao(Long idUsuario, Long idArquivo, Long tipoRequisicao, Boolean ativo) {
+    public Requisicao(Long idUsuario, Long idArquivo, Long tipoRequisicao, boolean ativo) {
         this.idUsuario = idUsuario;
         this.idArquivo = idArquivo;
         this.tipoRequisicao = tipoRequisicao;
@@ -52,11 +52,11 @@ public class Requisicao implements Serializable {
         this.tipoRequisicao = tipoRequisicao;
     }
 
-	public Boolean getAtivo() {
+	public boolean getAtivo() {
 		return ativo;
 	}
 
-	public void setAtivo(Boolean ativo) {
+	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
 }
