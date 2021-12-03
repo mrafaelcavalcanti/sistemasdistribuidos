@@ -96,6 +96,20 @@ public class RequisicoesUtils {
             }
         }
     }
+    
+    public void confirmarRecebimento(String ids) throws Exception {
+        RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(TIMEOUT).setSocketTimeout(TIMEOUT).build();
+        try (CloseableHttpClient httpclient = HttpClientBuilder.create().setDefaultRequestConfig(requestConfig).build()) {
+            HttpPost httpPost = new HttpPost(String.format("%s/api/arquivos/confimarRecebimento", server, ids));
+            httpPost.addHeader("Content-Type", "application/json");
+            try (CloseableHttpResponse response = httpclient.execute(httpPost)) {
+                if (response.getStatusLine().getStatusCode() != 201) {
+                    throw new Exception(String.format("CONFIRMAR_RECEBIMENTO(%s)",
+                            response.getStatusLine().getStatusCode()));
+                }
+            }
+        }
+    }
 
     public List<Requisicao> jsonToListOfObject(String json) throws Exception {
         JSONParser parser = new JSONParser();
