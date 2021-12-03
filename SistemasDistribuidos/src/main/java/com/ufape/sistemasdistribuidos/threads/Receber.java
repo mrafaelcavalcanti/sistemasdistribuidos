@@ -40,14 +40,11 @@ public class Receber extends Thread {
                 String path = null;
                 if (Objects.equals(arquivo.getIdUsuario(), usuario.getId())) {
                     arquivoByteArray = arquivo.getConteudo();
-                    path = usuario.getDiretorioArquivos() + "\\" + arquivo.getNome();
+                    path = usuario.getDiretorio() + "\\" + arquivo.getNome();
                 } else {
-                    path = usuario.getDiretorioArquivos() + "\\" + this.id;
+                    path = usuario.getDiretorio() + "\\" + this.id;
                 }
                 try (FileOutputStream fos = new FileOutputStream(path)) {
-                    //ObjectOutputStream oos = new ObjectOutputStream(fos);
-                    //oos.writeObject(arquivo);
-                    //oos.close();
                     fos.write(arquivoByteArray);
                     requisicoesUtils.confirmarRecebimento(usuario.getId(), this.id);
                 }

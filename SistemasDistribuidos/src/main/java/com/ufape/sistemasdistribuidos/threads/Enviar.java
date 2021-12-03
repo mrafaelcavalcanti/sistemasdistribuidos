@@ -9,10 +9,7 @@ import com.ufape.sistemasdistribuidos.model.ArquivoAux;
 import com.ufape.sistemasdistribuidos.model.Usuario;
 import com.ufape.sistemasdistribuidos.utils.RequisicoesUtils;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.ObjectInputStream;
-import org.apache.commons.lang3.SerializationUtils;
 import org.apache.poi.util.IOUtils;
 
 /**
@@ -37,14 +34,9 @@ public class Enviar extends Thread {
     @Override
     public void run() {
         try {
-            InputStream is = new FileInputStream(usuario.getDiretorioArquivos()+"\\"+this.id);
+            InputStream is = new FileInputStream(usuario.getDiretorio()+"\\"+this.id);
             arquivoByteArray = IOUtils.toByteArray(is);
-            //ObjectInputStream ois = new ObjectInputStream(fin);
-            //arquivo = (Arquivo) ois.readObject();
-            //ois.close();
-            //arquivoByteArray = SerializationUtils.serialize(arquivo);
             requisicoesUtils.enviarArquivo(arquivoByteArray);
-            String ids = usuario.getId().toString()+"_"+this.id.toString();
             requisicoesUtils.confirmarRecebimento(usuario.getId(), this.id);
         } catch (Exception e) {
             e.printStackTrace();
