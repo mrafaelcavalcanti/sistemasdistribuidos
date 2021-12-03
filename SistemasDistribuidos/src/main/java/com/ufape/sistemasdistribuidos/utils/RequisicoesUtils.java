@@ -24,7 +24,7 @@ import org.json.simple.parser.JSONParser;
 public class RequisicoesUtils {
 
     private final int TIMEOUT = 240000;
-    private final String server = "https://sistemasdistribuidosserver.herokuapp.com";
+    private final String server = "http://localhost:8080";
     private static RequisicoesUtils instancia;
 
     public static RequisicoesUtils getInstance() {
