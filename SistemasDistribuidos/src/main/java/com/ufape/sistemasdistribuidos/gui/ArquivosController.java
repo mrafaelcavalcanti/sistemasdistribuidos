@@ -1,5 +1,6 @@
 package com.ufape.sistemasdistribuidos.gui;
 
+import com.google.gson.Gson;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -134,9 +135,12 @@ public class ArquivosController extends GUIController {
 				arquivoAux.setConteudo(encryptedByte);
 				arquivoAux.setIdUsuario(usuario.getId());
 				arquivoAux.setNome(arquivoEscolhido.getName());
+                                
+                                Gson gson = new Gson();
+                                String json = gson.toJson(arquivoAux);
 				
-				byte[] arquivo = SerializationUtils.serialize(arquivoAux);
-				this.requisicoesUtils.enviarArquivo(arquivo);
+				//byte[] arquivo = SerializationUtils.serialize(arquivoAux);
+				this.requisicoesUtils.enviarArquivo(json);
 				Platform.runLater(() -> {
 					this.status.setText("Arquivo enviado com sucesso");
 					try {

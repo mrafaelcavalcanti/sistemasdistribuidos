@@ -9,6 +9,7 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ByteArrayEntity;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
@@ -81,6 +82,22 @@ public class RequisicoesUtils {
             httpPost.addHeader("Content-Type", "application/octet-stream");
             ByteArrayEntity bae = new ByteArrayEntity(bytearray);
             httpPost.setEntity(bae);
+            try (CloseableHttpResponse response = httpclient.execute(httpPost)) {
+                if (response.getStatusLine().getStatusCode() != 201) {
+                    throw new Exception(String.format("ENVIAR_ARQUIVO(%s)",
+                            response.getStatusLine().getStatusCode()));
+                }
+            }
+        }
+    }
+    
+    public void enviarArquivo(String json) throws Exception {
+        RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(TIMEOUT).setSocketTimeout(TIMEOUT).build();
+        try (CloseableHttpClient httpclient = HttpClientBuilder.create().setDefaultRequestConfig(requestConfig).build()) {
+            HttpPost httpPost = new HttpPost(String.format("%s/api/arquivos/enviarJson", server));
+            httpPost.addHeader("Content-Type", "application/aplication-json");
+            StringEntity params = new StringEntity(json);
+            httpPost.setEntity(params);
             try (CloseableHttpResponse response = httpclient.execute(httpPost)) {
                 if (response.getStatusLine().getStatusCode() != 201) {
                     throw new Exception(String.format("ENVIAR_ARQUIVO(%s)",
