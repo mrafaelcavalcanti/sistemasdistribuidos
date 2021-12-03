@@ -1,21 +1,14 @@
 package com.ufape.sistemasdistribuidos.utils;
 
 import com.ufape.sistemasdistribuidos.model.Requisicao;
-
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ByteArrayEntity;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
@@ -31,7 +24,7 @@ import org.json.simple.parser.JSONParser;
 public class RequisicoesUtils {
 
     private final int TIMEOUT = 240000;
-    private final String server = "https://sistemasdistribuidosserver.herokuapp.com/";
+    private final String server = "https://sistemasdistribuidosserver.herokuapp.com";
     private static RequisicoesUtils instancia;
 
     public static RequisicoesUtils getInstance() {
@@ -97,10 +90,10 @@ public class RequisicoesUtils {
         }
     }
     
-    public void confirmarRecebimento(String ids) throws Exception {
+    public void confirmarRecebimento(Long idUsuario, Long idArquivo) throws Exception {
         RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(TIMEOUT).setSocketTimeout(TIMEOUT).build();
         try (CloseableHttpClient httpclient = HttpClientBuilder.create().setDefaultRequestConfig(requestConfig).build()) {
-            HttpPost httpPost = new HttpPost(String.format("%s/api/arquivos/confimarRecebimento", server, ids));
+            HttpPost httpPost = new HttpPost(String.format("%s/api/arquivos/confimarRecebimento/%s/%s", server, idArquivo, idArquivo));
             httpPost.addHeader("Content-Type", "application/json");
             try (CloseableHttpResponse response = httpclient.execute(httpPost)) {
                 if (response.getStatusLine().getStatusCode() != 201) {

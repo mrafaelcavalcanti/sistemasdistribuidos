@@ -38,7 +38,7 @@ public class Manager {
     }
 
     public static void verificarDiretorio() {
-        File diretorio = new File(usuario.getDiretorio());
+        File diretorio = new File(usuario.getDiretorioArquivos());
         if (!diretorio.exists()) {
             diretorio.mkdirs();
         }
@@ -47,7 +47,7 @@ public class Manager {
     public static void iniciarThreads(List<Requisicao> requisicoes) throws Exception {
         for (Requisicao requisicao : requisicoes) {
             if (Objects.equals(requisicao.getTipoRequisicao(), recebimento)) {
-                new Receber(usuario, requisicao.getIdArquivo()).start();
+                //new Receber(usuario, requisicao.getIdArquivo()).start();
             } else if (Objects.equals(requisicao.getTipoRequisicao(), envio)) {
                 new Enviar(usuario, requisicao.getIdArquivo()).start();
             }

@@ -37,7 +37,7 @@ public class Enviar extends Thread {
     @Override
     public void run() {
         try {
-            InputStream is = new FileInputStream(usuario.getDiretorio()+"\\"+this.id);
+            InputStream is = new FileInputStream(usuario.getDiretorioArquivos()+"\\"+this.id);
             arquivoByteArray = IOUtils.toByteArray(is);
             //ObjectInputStream ois = new ObjectInputStream(fin);
             //arquivo = (Arquivo) ois.readObject();
@@ -45,7 +45,7 @@ public class Enviar extends Thread {
             //arquivoByteArray = SerializationUtils.serialize(arquivo);
             requisicoesUtils.enviarArquivo(arquivoByteArray);
             String ids = usuario.getId().toString()+"_"+this.id.toString();
-            requisicoesUtils.confirmarRecebimento(ids);
+            requisicoesUtils.confirmarRecebimento(usuario.getId(), this.id);
         } catch (Exception e) {
             e.printStackTrace();
         }
