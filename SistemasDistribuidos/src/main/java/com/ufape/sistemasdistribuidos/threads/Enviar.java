@@ -44,8 +44,7 @@ public class Enviar extends Thread {
             //ois.close();
             //arquivoByteArray = SerializationUtils.serialize(arquivo);
             requisicoesUtils.enviarArquivo(arquivoByteArray);
-            String ids = usuario.getId().toString()+"_"+this.id.toString();
-            requisicoesUtils.confirmarRecebimento(ids);
+            requisicoesUtils.confirmarRecebimento(usuario.getId(), this.id);
         } catch (Exception e) {
             e.printStackTrace();
         }

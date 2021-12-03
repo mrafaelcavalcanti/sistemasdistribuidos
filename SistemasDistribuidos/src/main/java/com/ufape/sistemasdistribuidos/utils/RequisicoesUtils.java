@@ -31,7 +31,7 @@ import org.json.simple.parser.JSONParser;
 public class RequisicoesUtils {
 
     private final int TIMEOUT = 240000;
-    private final String server = "https://sistemasdistribuidosserver.herokuapp.com/";
+    private final String server = "http://localhost:8080";
     private static RequisicoesUtils instancia;
 
     public static RequisicoesUtils getInstance() {
@@ -84,7 +84,7 @@ public class RequisicoesUtils {
     public void enviarArquivo(byte[] bytearray) throws Exception {
         RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(TIMEOUT).setSocketTimeout(TIMEOUT).build();
         try (CloseableHttpClient httpclient = HttpClientBuilder.create().setDefaultRequestConfig(requestConfig).build()) {
-            HttpPost httpPost = new HttpPost(String.format("%s/api/arquivos", server));
+            HttpPost httpPost = new HttpPost(String.format("%s/api/arquivos/enviar", server));
             httpPost.addHeader("Content-Type", "application/octet-stream");
             ByteArrayEntity bae = new ByteArrayEntity(bytearray);
             httpPost.setEntity(bae);
@@ -97,10 +97,10 @@ public class RequisicoesUtils {
         }
     }
     
-    public void confirmarRecebimento(String ids) throws Exception {
+    public void confirmarRecebimento(Long idUsuario, Long idArquivo) throws Exception {
         RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(TIMEOUT).setSocketTimeout(TIMEOUT).build();
         try (CloseableHttpClient httpclient = HttpClientBuilder.create().setDefaultRequestConfig(requestConfig).build()) {
-            HttpPost httpPost = new HttpPost(String.format("%s/api/arquivos/confimarRecebimento", server, ids));
+        	HttpPost httpPost = new HttpPost(String.format("%s/api/arquivos/confimarRecebimento/%s/%s", server, idArquivo, idArquivo));
             httpPost.addHeader("Content-Type", "application/json");
             try (CloseableHttpResponse response = httpclient.execute(httpPost)) {
                 if (response.getStatusLine().getStatusCode() != 201) {

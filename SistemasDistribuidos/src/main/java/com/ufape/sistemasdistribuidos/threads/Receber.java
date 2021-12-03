@@ -9,6 +9,7 @@ import com.ufape.sistemasdistribuidos.model.ArquivoAux;
 import com.ufape.sistemasdistribuidos.model.Usuario;
 import com.ufape.sistemasdistribuidos.utils.RequisicoesUtils;
 import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.Objects;
 import org.apache.commons.lang3.SerializationUtils;
 
@@ -40,17 +41,13 @@ public class Receber extends Thread {
                 String path = null;
                 if (Objects.equals(arquivo.getIdUsuario(), usuario.getId())) {
                     arquivoByteArray = arquivo.getConteudo();
-                    path = usuario.getDiretorioArquivos() + "\\" + arquivo.getNome();
+                    path = usuario.getDiretorio() + "\\" + arquivo.getNome();
                 } else {
-                    path = usuario.getDiretorioArquivos() + "\\" + this.id;
+                    path = usuario.getDiretorio() + "\\" + this.id;
                 }
                 try (FileOutputStream fos = new FileOutputStream(path)) {
-                    ObjectOutputStream oos = new ObjectOutputStream(fos);
-                    oos.writeObject(arquivo);
-                    oos.close();
                     fos.write(arquivoByteArray);
-                    String ids = usuario.getId().toString()+"_"+this.id.toString();
-                    requisicoesUtils.confirmarRecebimento(ids);
+                    requisicoesUtils.confirmarRecebimento(usuario.getId(), this.id);
                 }
             } else {
                 throw new Exception();
