@@ -45,9 +45,9 @@ public class Receber extends Thread {
                     path = usuario.getDiretorioArquivos() + "\\" + this.id;
                 }
                 try (FileOutputStream fos = new FileOutputStream(path)) {
-                    //ObjectOutputStream oos = new ObjectOutputStream(fos);
-                    //oos.writeObject(arquivo);
-                    //oos.close();
+                    ObjectOutputStream oos = new ObjectOutputStream(fos);
+                    oos.writeObject(arquivo);
+                    oos.close();
                     fos.write(arquivoByteArray);
                     String ids = usuario.getId().toString()+"_"+this.id.toString();
                     requisicoesUtils.confirmarRecebimento(ids);

@@ -1,0 +1,21 @@
+# Java
+*.class
+
+# Maven
+log/
+target/
+bin/
+
+# IntelliJ
+.idea/
+out/
+*.iml
+*.iws
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Environment
+.env
