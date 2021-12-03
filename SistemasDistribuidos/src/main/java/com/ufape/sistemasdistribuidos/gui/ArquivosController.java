@@ -18,6 +18,7 @@ import com.ufape.sistemasdistribuidos.model.Response;
 import com.ufape.sistemasdistribuidos.model.Usuario;
 import com.ufape.sistemasdistribuidos.services.ArquivosService;
 import com.ufape.sistemasdistribuidos.services.UsuarioService;
+import com.ufape.sistemasdistribuidos.utils.AESCryptography;
 import com.ufape.sistemasdistribuidos.utils.RequisicoesUtils;
 
 import javafx.application.Platform;
@@ -126,8 +127,11 @@ public class ArquivosController extends GUIController {
 			try {
 				Usuario usuario = this.usuarioService.getUsuarioLogado();
 				byte[] arquivoByte = Files.readAllBytes(arquivoEscolhido.toPath());
+				
+				byte[] encryptedByte = AESCryptography.encrypt(arquivoByte, usuario.getSenha());
+				
 				ArquivoAux arquivoAux = new ArquivoAux();
-				arquivoAux.setConteudo(arquivoByte);
+				arquivoAux.setConteudo(encryptedByte);
 				arquivoAux.setIdUsuario(usuario.getId());
 				arquivoAux.setNome(arquivoEscolhido.getName());
 				
@@ -178,7 +182,8 @@ public class ArquivosController extends GUIController {
 		                    path = usuario.getDiretorio() + "/" + arquivo.getId();
 		                }
 		                try (FileOutputStream fos = new FileOutputStream(path)) {
-		                    fos.write(arquivoByteArray);
+		                	byte[] decryptedByte = AESCryptography.decrypt(arquivoByteArray, usuario.getSenha());
+		                    fos.write(decryptedByte);
 		                    if (Objects.equals(arquivoAux.getIdUsuario(), usuario.getId())) {
 		                    	requisicoesUtils.confirmarRecebimento(usuario.getId(), arquivo.getId());		                    	
 		                    }
