@@ -30,13 +30,13 @@ public class App extends Application {
     		
     		if (usuario != null) {
     			usuarioService.setUsuarioLogado(usuario);
-    			scene = new Scene(loadFXML("arquivos"), 640, 480);
+    			scene = new Scene(loadFXML("arquivos"), 800, 600);
     			stage.setScene(scene);
     			stage.setTitle("DistDrive");
     			stage.show();	
     		}
     	} catch (IOException | ParseException ex) {
-    		scene = new Scene(loadFXML("entrar"), 640, 480);
+    		scene = new Scene(loadFXML("entrar"), 800, 600);
     		stage.setScene(scene);
     		stage.show(); 		
     	}
