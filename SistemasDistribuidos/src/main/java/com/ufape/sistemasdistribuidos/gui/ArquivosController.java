@@ -127,7 +127,7 @@ public class ArquivosController extends GUIController {
 			this.enableLoading();
 			try {
 				Usuario usuario = this.usuarioService.getUsuarioLogado();
-				byte[] arquivoByte = Files.readAllBytes(arquivoEscolhido.toPath());
+				byte[] arquivoByte = Files.readAllBytes(this.arquivoEscolhido.toPath());
 				
 				byte[] encryptedByte = AESCryptography.encrypt(arquivoByte, usuario.getSenha());
 				
@@ -136,10 +136,10 @@ public class ArquivosController extends GUIController {
 				arquivoAux.setIdUsuario(usuario.getId());
 				arquivoAux.setNome(arquivoEscolhido.getName());
                                 
-                                Gson gson = new Gson();
-                                String json = gson.toJson(arquivoAux);
+                Gson gson = new Gson();
+                String json = gson.toJson(arquivoAux);
 				
-				//byte[] arquivo = SerializationUtils.serialize(arquivoAux);
+//				byte[] arquivo = SerializationUtils.serialize(arquivoAux);
 				this.requisicoesUtils.enviarArquivo(json);
 				Platform.runLater(() -> {
 					this.status.setText("Arquivo enviado com sucesso");
@@ -148,7 +148,7 @@ public class ArquivosController extends GUIController {
 					} catch (IOException e) {
 						this.status.setText("Erro ao carregar lista de arquivos");
 					}
-					
+					this.removerArquivo();
 				});
 			} catch (Exception ex) {
 				Platform.runLater(() -> {
@@ -158,11 +158,10 @@ public class ArquivosController extends GUIController {
 					} catch (IOException e) {
 						this.status.setText("Erro ao enviar arquivo");
 					}
-					
+					this.removerArquivo();
 				});
 			}
 		}).start();
-		this.removerArquivo();
 	}
 	
 	@FXML
@@ -188,9 +187,6 @@ public class ArquivosController extends GUIController {
 		                try (FileOutputStream fos = new FileOutputStream(path)) {
 		                	byte[] decryptedByte = AESCryptography.decrypt(arquivoByteArray, usuario.getSenha());
 		                    fos.write(decryptedByte);
-		                    if (Objects.equals(arquivoAux.getIdUsuario(), usuario.getId())) {
-		                    	requisicoesUtils.confirmarRecebimento(usuario.getId(), arquivo.getId());		                    	
-		                    }
 		                }
 		            } else {
 		                throw new Exception();

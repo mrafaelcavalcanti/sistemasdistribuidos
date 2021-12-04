@@ -10,10 +10,10 @@ public class ArquivoAux implements Serializable {
 
     private static final long serialVersionUID = -8298381724524406275L;
 
-    private Long id;
-    private Long idUsuario;
-    private String nome;
-    private byte[] conteudo;
+    public Long id;
+    public Long idUsuario;
+    public String nome;
+    public byte[] conteudo;
 
     public ArquivoAux() {
     }

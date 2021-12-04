@@ -9,6 +9,7 @@ import com.ufape.sistemasdistribuidos.services.UsuarioService;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class EntrarController {
@@ -19,7 +20,7 @@ public class EntrarController {
 	public TextField nome;
 	
 	@FXML
-	public TextField senha;
+	public PasswordField senha;
 	
 	@FXML
 	public Label status;

@@ -10,9 +10,11 @@ module com.ufape.sistemasdistribuidos {
 	requires java.dotenv;
 	requires java.sql;
 	requires javafx.base;
+	requires com.google.gson;
 	
     opens com.ufape.sistemasdistribuidos to javafx.fxml;
     opens com.ufape.sistemasdistribuidos.model to javafx.base;
     exports com.ufape.sistemasdistribuidos;
     exports com.ufape.sistemasdistribuidos.gui;
+    exports com.ufape.sistemasdistribuidos.model;
 }

@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 
 import org.json.simple.JSONObject;
@@ -94,13 +96,14 @@ public class Usuario {
     }
 	
 	public void objectToJson() throws IOException {
+		Path path = Paths.get(this.diretorio);
 		HashMap<String, Object> mapObj = new HashMap<String, Object>();
 		mapObj.put("id", this.id);
 		mapObj.put("nome", this.nome);
 		mapObj.put("senha", this.senha);
 		mapObj.put("espacoSolicitado", this.espacoSolicitado.toString());
 		mapObj.put("espacoDisponivel", this.espacoDisponivel);
-		mapObj.put("diretorio", this.diretorio);
+		mapObj.put("diretorio", path.toString().strip());
 
 		JSONObject jsonObj = new JSONObject(mapObj);
 		BufferedWriter writer = new BufferedWriter(new FileWriter("./user-properties.json"));

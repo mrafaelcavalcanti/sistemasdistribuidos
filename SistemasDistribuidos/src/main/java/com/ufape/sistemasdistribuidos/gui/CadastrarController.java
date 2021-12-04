@@ -1,5 +1,6 @@
 package com.ufape.sistemasdistribuidos.gui;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
@@ -14,17 +15,26 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class CadastrarController {
 	
 	private UsuarioService usuarioService;
+	private String diretorioEscolhido;
 	
 	@FXML
 	public TextField nome;
 	
 	@FXML
 	public TextField senha;
+	
+	@FXML
+	public TextField diretorio;
 	
 	@FXML
 	public TextField espacoSolicitado;
@@ -51,9 +61,26 @@ public class CadastrarController {
     }
     
     @FXML
+	public void escolherArquivoTeclado(KeyEvent event) {
+		if (event.getCode().getName() == "Space" || 
+				event.getCode().getName() == "Enter") {
+			this.escolherArquivo();
+		}		
+	}
+	
+	@FXML
+	public void escolherArquivoMouse(MouseEvent event) {
+		if (event.getButton().name() == "PRIMARY") {
+			this.escolherArquivo();
+		}		
+	}
+    
+    @FXML
     public void cadastrarUsuario() throws IOException {
     	String nome = this.nome.getText();
     	String senha = this.senha.getText();
+    	String diretorio = this.diretorio.getText();
+
     	Integer espacoSolicitado;
     	try {
     		espacoSolicitado = Integer.parseInt(this.espacoSolicitado.getText());    		
@@ -70,9 +97,14 @@ public class CadastrarController {
     			return;
     		}
     		
+    		if (diretorio == null) {
+    			this.status.setText("Campo diretório obrigatório");
+    			return;
+    		}
+    		
     		new Thread(() -> {
     			this.enableLoading();
-    			Response<Usuario> response = this.usuarioService.cadastrarUsuario(100000, nome, senha, espacoSolicitado, 0);
+    			Response<Usuario> response = this.usuarioService.cadastrarUsuario(100000, nome, senha, espacoSolicitado, 0, diretorio);
     			
     			Platform.runLater(() -> {
     				this.status.setText(response.getMessage());
@@ -101,6 +133,15 @@ public class CadastrarController {
     	this.espacoSolicitado.setDisable(true);
     	this.cadastrar.setDisable(true);
     }
+    
+    private void escolherArquivo() {
+    	DirectoryChooser chooser = new DirectoryChooser();
+		File file = chooser.showDialog(new Stage());
+		if (file != null) {
+			this.diretorioEscolhido = file.getAbsolutePath();
+			this.diretorio.setText(this.diretorioEscolhido);
+        }
+	}
     
     private void disableLoading() {
     	this.loadingPane.setDisable(true);
