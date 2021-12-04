@@ -84,7 +84,7 @@ public class UsuarioService extends RequestService {
 		}
 	}
 	
-	public Response<Usuario> cadastrarUsuario(Integer id, String nome, String senha, Integer espacoSolicitado, Integer espacoDisponivel) {
+	public Response<Usuario> cadastrarUsuario(Integer id, String nome, String senha, Integer espacoSolicitado, Integer espacoDisponivel, String diretorio) {
     	try {
     		HashMap<String, Object> mapObj = new HashMap<String, Object>();
     		mapObj.put("id", id);
@@ -92,6 +92,7 @@ public class UsuarioService extends RequestService {
     		mapObj.put("senha", senha);
     		mapObj.put("espacoSolicitado", espacoSolicitado.toString());
     		mapObj.put("espacoDisponivel", espacoDisponivel);
+    		mapObj.put("diretorio", diretorio);
 
     		JSONObject jsonObj = new JSONObject(mapObj);
     		RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(this.getTimeout()).setSocketTimeout(this.getTimeout()).build();

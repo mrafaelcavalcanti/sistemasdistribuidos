@@ -25,7 +25,7 @@ import org.json.simple.parser.JSONParser;
 public class RequisicoesUtils {
 
     private final int TIMEOUT = 240000;
-    private final String server = "http://localhost:8080";
+    private final String server = "https://sistemasdistribuidosserver.herokuapp.com";
     private static RequisicoesUtils instancia;
 
     public static RequisicoesUtils getInstance() {
@@ -99,7 +99,7 @@ public class RequisicoesUtils {
             StringEntity params = new StringEntity(json);
             httpPost.setEntity(params);
             try (CloseableHttpResponse response = httpclient.execute(httpPost)) {
-                if (response.getStatusLine().getStatusCode() != 201) {
+                if (response.getStatusLine().getStatusCode() != 200) {
                     throw new Exception(String.format("ENVIAR_ARQUIVO(%s)",
                             response.getStatusLine().getStatusCode()));
                 }
