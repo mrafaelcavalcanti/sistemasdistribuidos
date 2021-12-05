@@ -1,0 +1,38 @@
+
+
+.grid-pane {
+	-fx-background-color: #fff, #fff;
+}
+
+.text-field {
+	-fx-background-color: -fx-text-box-border, -fx-background ;
+	-fx-background-insets: -1 -1 -1 -1, 0 0 0 0, 0 -1 20 -1;
+	-fx-background-radius: 5;
+	-fx-padding: 0.25em;
+}
+
+.text-field:focused, .list-view:focused {
+    -fx-background-color: #3584e4, -fx-background ;
+}
+
+.button {
+	-fx-background-color: #3584e4, #3584e4;
+	-fx-background-insets: -1 -1 -1 -1, 0 0 0 0, 0 -1 20 -1;
+	-fx-text-fill: #fff;
+	-fx-padding: 0.25em 1em;
+	-fx-width: 30em;
+}
+
+.button:focused, .button:hover {
+	-fx-background-color: #1a5fb4, #1a5fb4;
+	-fx-text-fill: #fff;
+}
+
+.button.danger {
+	-fx-background-color: #e01b24, #e01b24;
+}
+
+.button.danger:focused, .button.danger:hover {
+	-fx-background-color: #c01c28, #c01c28;
+	-fx-text-fill: #fff;
+}

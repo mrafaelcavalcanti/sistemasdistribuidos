@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ufape.sistemasdistribuidos.gui.EntrarController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@styles/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ufape.sistemasdistribuidos.gui.EntrarController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -42,9 +42,9 @@
       <Label text="Senha" GridPane.columnIndex="1" GridPane.rowIndex="5" />
       <PasswordField fx:id="senha" GridPane.columnIndex="1" GridPane.rowIndex="6" />
       <Label fx:id="status" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
-      <Button mnemonicParsing="false" onAction="#entrar" text="Entrar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
+      <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#entrar" text="Entrar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
       <Label text="ou" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
-      <Button mnemonicParsing="false" onAction="#switchToPrimary" text="Cadastrar-se" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" />
+      <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#switchToPrimary" text="Cadastrar-se" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" />
       <VBox alignment="CENTER" disable="true" opacity="0.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="3" GridPane.rowSpan="12">
          <children>
             <ProgressIndicator fx:id="progress" />

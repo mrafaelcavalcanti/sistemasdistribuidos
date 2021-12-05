@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -14,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ufape.sistemasdistribuidos.gui.ArquivosController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="grid-pane" stylesheets="@styles/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ufape.sistemasdistribuidos.gui.ArquivosController">
    <rowConstraints>
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -49,19 +50,27 @@
             <Separator prefWidth="5.0" visible="false" />
             <Button mnemonicParsing="false" onAction="#encerrarSessao" text="Encerrar sessão" />
             <Separator prefWidth="5.0" visible="false" />
-            <Button mnemonicParsing="false" onAction="#sair" text="×" />
+            <Button mnemonicParsing="false" onAction="#sair" text="×">
+               <styleClass>
+                  <String fx:value="button" />
+                  <String fx:value="danger" />
+               </styleClass></Button>
          </children>
       </HBox>
       <Label text="Enviar arquivo:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <TextField fx:id="arquivoSelecionado" editable="false" onKeyPressed="#escolherArquivoTeclado" onMouseClicked="#escolherArquivoMouse" promptText="Escolher arquivo para enviar" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3" />
-      <Button fx:id="removerButton" disable="true" mnemonicParsing="false" onAction="#remover" text="Remover" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4" />
       <Button fx:id="enviarButton" disable="true" mnemonicParsing="false" onAction="#enviar" text="Enviar" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+      <Button fx:id="removerButton" disable="true" mnemonicParsing="false" onAction="#remover" text="Remover" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4" />
       <Label text="Arquivos salvos" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="6" />
+      <Button mnemonicParsing="false" onAction="#recarregar" text="Recarregar" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
       <ListView fx:id="arquivos" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="7" GridPane.rowSpan="4" />
       <Button mnemonicParsing="false" onAction="#baixar" text="Baixar" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="RIGHT" GridPane.rowIndex="11" />
-      <Button mnemonicParsing="false" onAction="#excluir" text="Excluir" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+      <Button mnemonicParsing="false" onAction="#excluir" text="Excluir" GridPane.columnIndex="1" GridPane.rowIndex="11">
+         <styleClass>
+            <String fx:value="button" />
+            <String fx:value="danger" />
+         </styleClass></Button>
       <Label fx:id="status" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="12" />
-      <Button mnemonicParsing="false" onAction="#recarregar" text="Recarregar" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
       <VBox fx:id="loadingPane" alignment="CENTER" disable="true" opacity="0.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #cccccccc;" GridPane.columnSpan="5" GridPane.rowSpan="14">
          <children>
             <ProgressIndicator fx:id="progress">
